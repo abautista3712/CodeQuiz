@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>CodeQuiz</title>
+  </head>
+  <body>
+    <!-- Projected Approach
+[A] Pre-work Setup
+1. Write instructions
+    i. Title
+    ii. Instructions "call to action"
+2. List and write 10 Questions: 3 False Answers, 1 True Answer
+
+[B] Divided into 4 Page types
+1. Instruction page
+    i. HTML
+        a. View Highscores (Top Left)
+        b. Static Time (Top Right)
+        c. In div: H1 Title, Instructions, "Start Quiz" button
+    ii. JS
+        a. Behind: Sets questions/answers in JS to localStorage
+        b. "Start Quiz" Button 
+            -addEventListener: On click
+                -Transition to second Page
+                -Gets question/answers from localStorage
+                -Starts timer
+2. Quiz pages
+    i. HTML
+        a. H2 element question
+        b. 4 buttons with answers inside
+    ii. JS
+        a. Timer
+            -Counts down from 75s
+            -If at 0 automatically goes to highscore page
+        a. If wrong: border below appears. Feedback: "wrong" appears.
+        b. If right: append H2 element and 4 buttons using getItem from local localStorage
+3. Congrats! (if counter = 0 or if questions > 10)
+    i. HTML
+        a. Use HTML from part 2
+    ii. JS
+        a. Append
+            -"Finished"
+            -"Final Score"
+            -Form for initials input
+            -Submit button
+        b. addEventListener
+            -Submit button will:
+                -Set information into localStorage
+                -Display local storage
+4. Highscore
+    i. Get information from localStorage
+    ii. Display local storage
+    iii. Append "Go back" button      -->
+    <div>
+      <div>
+        <h1></h1>
+        <p></p>
+        <button></button>
+      </div>
+    </div>
+  </body>
+</html>

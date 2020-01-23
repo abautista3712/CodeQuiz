@@ -1,9 +1,12 @@
-.headerSpacing {
-  margin-top: 5px;
-  margin-bottom: 5px;
+.marginSpacing {
+  margin-top: 1%;
+  margin-bottom: 1%;
 }
 
 .contentBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   height: 75vh;
   border: solid;
 }

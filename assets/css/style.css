@@ -1,0 +1,9 @@
+.headerSpacing {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.contentBox {
+  height: 75vh;
+  border: solid;
+}

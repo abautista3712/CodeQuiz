@@ -16,10 +16,10 @@
   <body>
     <!-- Projected Approach
 [A] Pre-work Setup
-1. Write instructions
-    i. Title
+X. Write instructions
+    X. Title
         -Capitals of the World Quiz
-    ii. Instructions "call to action"
+    X. Instructions "call to action"
         -This is a quiz about the world's capital cities. 
         There are 10 total questions. 
         For each question, there will be four possible answers to choose from, one of which is correct. 
@@ -77,8 +77,8 @@
             -Monrovia
             -Port Moresby
 [B] Divided into 4 Page types
-1. Instruction page
-    i. HTML
+X. Instruction page
+    X. HTML
         a. View Highscores (Top Left)
         b. Static Time (Top Right)
         c. In div: H1 Title, Instructions, "Start Quiz" button
@@ -116,6 +116,8 @@
     i. Get information from localStorage
     ii. Display local storage
     iii. Append "Go back" button      -->
+
+    <!-- Header: Score + Timer -->
     <div class="container">
       <div class="row marginSpacing">
         <div class="col-md-1">Score:</div>
@@ -125,10 +127,11 @@
         <div class="col-md-1"></div>
       </div>
     </div>
+    <!-- Content Box 1: Title + Instructions -->
     <div class="container">
-      <div class="row contentBox">
+      <div class="row content Dimension contentFlex" id="">
         <div class="col-md-1"></div>
-        <div class="col-md-10 marginSpacing">
+        <div class="col-md-10 marginSpacing" id="contentIntro">
           <h1>Capitals of the World Quiz</h1>
           <p>
             This is a quiz about the world's capital cities. There are 10 total
@@ -137,10 +140,13 @@
             advance you to the next question. You will have 75 seconds to
             complete the quiz. Good luck!
           </p>
-          <button type="button" class="btn btn-primary">Start Quiz</button>
+          <button type="button" class="btn btn-primary" id="startBtn">
+            Start Quiz
+          </button>
         </div>
         <div class="col-md-1"></div>
       </div>
     </div>
+    <script src="./assets/js/script.js"></script>
   </body>
 </html>

@@ -62,6 +62,10 @@ startQuiz.addEventListener("click", function() {
     countStart--;
     targetTimeDiv.textContent = countStart;
   }, 1000);
+  document.querySelector("#contentIntro").style.display = "none";
+  startQuiz.style.display = "none";
+
+  document.querySelector("#topLeftHeader").textContent = "Score";
 });
 
 function chooseCountry() {

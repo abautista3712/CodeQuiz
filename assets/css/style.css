@@ -3,10 +3,13 @@
   margin-bottom: 1%;
 }
 
-.contentBox {
+.contentDimension {
+  height: 75vh;
+  border: solid;
+}
+
+.contentFlex {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 75vh;
-  border: solid;
 }

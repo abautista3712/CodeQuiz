@@ -1,5 +1,17 @@
 var startQuiz = document.querySelector("#startBtn");
 var targetTimeDiv = document.querySelector("#timeDiv");
+var countryArr = [
+  "Australia",
+  "Cambodia",
+  "Philippines",
+  "Austria",
+  "Colombia",
+  "Bosnia and Herzegovina",
+  "Djibouti",
+  "Belarus",
+  "Dominican Republic",
+  "Canada"
+];
 var Australia = {
   True: "Canberra",
   False: ["Bridgetown", "Saint John's", "Kingston"]
@@ -49,6 +61,12 @@ startQuiz.addEventListener("click", function() {
     }
     countStart--;
     targetTimeDiv.textContent = countStart;
-    console.log();
   }, 1000);
 });
+
+function chooseCountry() {
+  for (i = 0; i < countryArr.length; i++) {
+    return countryArr[i];
+  }
+}
+// localStorage.setItem("Canada", JSON.stringify(Canada));

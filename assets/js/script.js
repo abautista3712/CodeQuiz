@@ -4,7 +4,7 @@ var Australia = {
   True: "Canberra",
   False: ["Bridgetown", "Saint John's", "Kingston"]
 };
-var Australia = {
+var Cambodia = {
   True: "Phnom Penh",
   False: ["Kinshasa", "Moroni", "Tbilisi"]
 };
@@ -20,7 +20,7 @@ var Columbia = {
   True: "Bogota",
   False: ["Lima", "San Marino", "San Jose"]
 };
-var Australia = {
+var BosniaAndHerzegovina = {
   True: "Sarajevo",
   False: ["Yamoussoukro", "Sofia", "Minsk"]
 };

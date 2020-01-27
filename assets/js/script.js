@@ -1,5 +1,10 @@
-var startQuiz = document.querySelector("#startBtn");
-var targetTimeDiv = document.querySelector("#timeDiv");
+var targetHighscore = document.querySelector("#highscoreDiv");
+var targetTime = document.querySelector("#timeDiv");
+var targetTitle = document.querySelector("#title");
+var targetIntro = document.querySelector("#intro");
+var targetStartBtn = document.querySelector("#startBtn");
+var targetContentParent = document.querySelector("#contentParent");
+
 var countryArr = [
   "Australia",
   "Cambodia",
@@ -53,24 +58,35 @@ var Canada = {
   False: ["Georgetown", "Monrovia", "Port Moresby"]
 };
 
-startQuiz.addEventListener("click", function() {
+targetStartBtn.addEventListener("click", function() {
+  // Start Timer
   var countStart = 5;
   setInterval(function() {
     if (countStart === 0) {
       return;
     }
     countStart--;
-    targetTimeDiv.textContent = countStart;
+    targetTime.textContent = countStart;
   }, 1000);
-  document.querySelector("#contentIntro").style.display = "none";
-  startQuiz.style.display = "none";
 
-  document.querySelector("#topLeftHeader").textContent = "Score";
-});
+  //   View Highscore Button -> Current Highscore
+  targetHighscore.textContent = "Highscore";
 
-function chooseCountry() {
-  for (i = 0; i < countryArr.length; i++) {
-    return countryArr[i];
+  //   Remove Elements
+  targetTitle.remove();
+  targetIntro.remove();
+  targetStartBtn.remove();
+
+  //   New Question
+  var newQuestion = document.createElement("h2");
+  newQuestion.textContent = "Test";
+  targetContentParent.appendChild(newQuestion);
+
+  //   New
+  for (i = 0; i < 4; i++) {
+    var newAnswer = document.createElement("div");
+    newAnswer.textContent = "Test";
+    targetContentParent.appendChild(newAnswer);
   }
-}
+});
 // localStorage.setItem("Canada", JSON.stringify(Canada));

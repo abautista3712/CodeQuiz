@@ -60,7 +60,7 @@ X. Instruction page
     <!-- Header: Score + Timer -->
     <div class="container">
       <div class="row marginSpacing">
-        <div class="col-md-2" id="topLeftHeader">View Highscores</div>
+        <div class="col-md-2" id="highscoreDiv">View Highscores</div>
         <div class="col-md-8"></div>
         <div class="col-md-1">Timer:</div>
         <div class="col-md-1" id="timeDiv"></div>
@@ -70,16 +70,16 @@ X. Instruction page
     <div class="container">
       <div class="row contentDimension contentFlex" id="">
         <div class="col-md-1"></div>
-        <div class="col-md-10 marginSpacing" id="contentIntro">
-          <h1>Capitals of the World Quiz</h1>
-          <p>
+        <div class="col-md-10 marginSpacing" id="contentParent">
+          <h1 id="title">Capitals of the World Quiz</h1>
+          <p id="intro">
             This is a quiz about the world's capital cities. There are 10 total
             questions. For each question, there will be four possible answers to
             choose from, one of which is correct. Only a correct answer will
             advance you to the next question. You will have 75 seconds to
             complete the quiz. Good luck!
           </p>
-          <button type="button" class="btn btn-primary" id="startBtn">
+          <button id="startBtn" type="button" class="btn btn-primary">
             Start Quiz
           </button>
         </div>

@@ -131,16 +131,9 @@ targetStartBtn.addEventListener("click", function() {
 
   //   Add on click event to all answers
   var targetAnswers = document.querySelectorAll(".answer");
-  targetAnswers[0].addEventListener("click", function() {
-    console.log(targetAnswers[0].textContent);
-  });
-  targetAnswers[1].addEventListener("click", function() {
-    console.log(targetAnswers[1].textContent);
-  });
-  targetAnswers[2].addEventListener("click", function() {
-    console.log(targetAnswers[2].textContent);
-  });
-  targetAnswers[3].addEventListener("click", function() {
-    console.log(targetAnswers[3].textContent);
-  });
+  for (j = 0; j < 4; j++) {
+    targetAnswers[j].addEventListener("click", function() {
+      console.log(this.textContent);
+    });
+  }
 });

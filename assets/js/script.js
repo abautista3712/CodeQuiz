@@ -70,6 +70,7 @@ var countryArr = [
   Canada
 ];
 
+// Actions to execute when Start Quiz button is pressed
 targetStartBtn.addEventListener("click", function() {
   // Start Timer
   var countStart = 5;
@@ -124,6 +125,16 @@ targetStartBtn.addEventListener("click", function() {
     newAnswer.textContent = answerArr[i];
     newAnswer.style.padding = "1%";
     newAnswer.style.border = "solid";
+    newAnswer.setAttribute("id", answerArr[i]);
+    newAnswer.setAttribute("class", "answer");
     targetContentParent.appendChild(newAnswer);
+  }
+
+  //   Add on click event to all answers
+  var targetAnswers = document.querySelectorAll(".answer");
+  for (j = 0; j < 4; j++) {
+    targetAnswers[j].addEventListener("click", function() {
+      console.log("Test");
+    });
   }
 });

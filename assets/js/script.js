@@ -125,7 +125,6 @@ targetStartBtn.addEventListener("click", function() {
     newAnswer.textContent = answerArr[i];
     newAnswer.style.padding = "1%";
     newAnswer.style.border = "solid";
-    newAnswer.setAttribute("id", answerArr[i]);
     newAnswer.setAttribute("class", "answer");
     targetContentParent.appendChild(newAnswer);
   }

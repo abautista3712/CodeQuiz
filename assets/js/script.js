@@ -95,19 +95,35 @@ targetStartBtn.addEventListener("click", function() {
     "What is the capital of " + countryArr[questionCounter].Name + "?";
   targetContentParent.appendChild(newQuestion);
 
-  //   New Answers
-  var trueAnswer = document.createElement("div");
-  trueAnswer.textContent = countryArr[questionCounter].True;
-  trueAnswer.style.padding = "1%";
-  trueAnswer.style.border = "solid";
-  targetContentParent.appendChild(trueAnswer);
-
+  //   New Answers Generation
+  var answerArr = [];
+  answerArr.push(countryArr[questionCounter].True);
   for (i = 0; i < 3; i++) {
+    answerArr.push(countryArr[questionCounter].False[i]);
+  }
+
+  //   New Answer Shuffle via Fisher-Yates (Knuth) Shuffle
+  function shuffle(array) {
+    var currentIndex = array.length,
+      temporaryValue,
+      randomIndex;
+    while (0 !== currentIndex) {
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+      temporaryValue = array[currentIndex];
+      array[currentIndex] = array[randomIndex];
+      array[randomIndex] = temporaryValue;
+    }
+    return array;
+  }
+  answerArr = shuffle(answerArr);
+
+  //   Append array with shuffled answers to parent div
+  for (i = 0; i < 4; i++) {
     var newAnswer = document.createElement("div");
-    newAnswer.textContent = countryArr[questionCounter].False[i];
+    newAnswer.textContent = answerArr[i];
     newAnswer.style.padding = "1%";
     newAnswer.style.border = "solid";
     targetContentParent.appendChild(newAnswer);
   }
 });
-// localStorage.setItem("Canada", JSON.stringify(Canada));

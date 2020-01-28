@@ -213,12 +213,27 @@ function createHighscoreContent() {
   highscoreContainer.appendChild(highscoreInput);
 
   var highscoreBtn = document.createElement("button");
+  highscoreBtn.setAttribute("id", "inputBtn");
   highscoreBtn.setAttribute("class", "btn btn-success");
   highscoreBtn.textContent = "\u00bb";
   highscoreContainer.appendChild(highscoreBtn);
 }
 
+function enterInput() {
+  var targetInput = document.querySelector("#input");
+  document.addEventListener("keypress", function(e) {
+    if (e.key === "Enter") {
+      console.log(targetInput.value);
+    }
+  });
+  var targetInputBtn = document.querySelector("#inputBtn");
+  targetInputBtn.addEventListener("click", function() {
+    console.log(targetInput.value);
+  });
+}
+
 function renderHSInput() {
   removeContent();
   createHighscoreContent();
+  enterInput();
 }

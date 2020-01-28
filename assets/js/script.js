@@ -91,7 +91,7 @@ countryArr = shuffle(countryArr);
 // Actions to execute when Start Quiz button is pressed
 targetStartBtn.addEventListener("click", function() {
   // (1) Start Timer
-  var countStart = 75;
+  var countStart = 150;
   targetTime.textContent = countStart;
   setInterval(function() {
     if (countStart <= 0) {
@@ -162,7 +162,7 @@ targetStartBtn.addEventListener("click", function() {
           newQuestion();
           console.log("Correct");
         } else {
-          // (ii) If clicked answer is not true, countStart is subtracted by 15 and styling is added to infer a wrong answer is selected
+          // (ii) If clicked answer is not true, countStart is subtracted by 15 and styling is added to infer wrong answer is selected
           countStart -= 15;
           this.style.background = "#ff3333";
           this.style.color = "#ffffff";

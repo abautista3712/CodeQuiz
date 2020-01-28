@@ -1,3 +1,4 @@
+// Variables for targeting elements in HTML
 var targetHighscore = document.querySelector("#highscoreDiv");
 var targetTime = document.querySelector("#timeDiv");
 var targetTitle = document.querySelector("#title");
@@ -6,6 +7,7 @@ var targetStartBtn = document.querySelector("#startBtn");
 var targetContentParent = document.querySelector("#contentParent");
 var questionCounter = 0;
 
+// Variables for Question and Answers
 var Australia = {
   Name: "Australia",
   True: "Canberra",
@@ -57,6 +59,7 @@ var Canada = {
   False: ["Georgetown", "Monrovia", "Port Moresby"]
 };
 
+// Array with all countries to order questions
 var countryArr = [
   Australia,
   Cambodia,
@@ -69,6 +72,21 @@ var countryArr = [
   DominicanRepublic,
   Canada
 ];
+//   Questions Order Shuffle via Fisher-Yates (Knuth) Shuffle
+function shuffle(array) {
+  var currentIndex = array.length,
+    temporaryValue,
+    randomIndex;
+  while (0 !== currentIndex) {
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+  return array;
+}
+countryArr = shuffle(countryArr);
 
 // Actions to execute when Start Quiz button is pressed
 targetStartBtn.addEventListener("click", function() {
@@ -83,19 +101,17 @@ targetStartBtn.addEventListener("click", function() {
     countStart--;
     targetTime.textContent = countStart;
   }, 1000);
-
-  //   View Highscore Button -> Current Highscore
+  //   View Highscore Button changes to Current Highscore
   targetHighscore.textContent = "Highscore";
-
   //   Remove Elements
   targetTitle.remove();
   targetIntro.remove();
   targetStartBtn.remove();
+  newQuestion();
 
-  nextQuestion();
-
-  function nextQuestion() {
-    //   New Question Function
+  //   Function to create new question + shuffled answers
+  function newQuestion() {
+    //   New Question Generation
     var newQuestionDiv = document.createElement("h2");
     newQuestionDiv.setAttribute("id", "question");
     newQuestionDiv.textContent =
@@ -142,7 +158,7 @@ targetStartBtn.addEventListener("click", function() {
             targetAnswers[k].remove();
           }
           questionCounter++;
-          nextQuestion();
+          newQuestion();
           console.log("Correct");
         } else {
           countStart -= 15;

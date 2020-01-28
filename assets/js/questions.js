@@ -95,10 +95,10 @@ targetStartBtn.addEventListener("click", function() {
   // (1) Start Timer
   targetTime.textContent = countStart;
   var timer = setInterval(function() {
-    if (countStart <= 0) {
-      clearInterval(timer);
+    if (questionCounter >= 9 || countStart <= 0) {
       countStart = 0;
       targetTime.textContent = 0;
+      clearInterval(timer);
       removeContent();
       createHighscoreDiv();
       return;
@@ -159,16 +159,18 @@ targetStartBtn.addEventListener("click", function() {
         var selectedAnswer = this.textContent;
         // (i) If clicked answer is true, current question and answers will be removed, questionsCounter advances by one, timer will stop, and newQuestions() function is called
         if (selectedAnswer === countryArr[questionCounter].True) {
-          removeContent();
-          questionCounter++;
-          newQuestion();
-          console.log("Correct");
+          if (questionCounter >= 9) {
+            return;
+          } else {
+            questionCounter++;
+            removeContent();
+            newQuestion();
+          }
         } else {
           // (ii) If clicked answer is not true, countStart is subtracted by 15 and styling is added to infer wrong answer is selected
           countStart -= 15;
           this.style.background = "#ff3333";
           this.style.color = "#ffffff";
-          console.log("Incorrect");
         }
       });
     }

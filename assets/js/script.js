@@ -133,7 +133,12 @@ targetStartBtn.addEventListener("click", function() {
   var targetAnswers = document.querySelectorAll(".answer");
   for (j = 0; j < 4; j++) {
     targetAnswers[j].addEventListener("click", function() {
-      console.log(this.textContent);
+      var selectedAnswer = this.textContent;
+      if (selectedAnswer === countryArr[questionCounter].True) {
+        console.log("Correct");
+      } else {
+        console.log("Incorrect");
+      }
     });
   }
 });

@@ -73,9 +73,11 @@ var countryArr = [
 // Actions to execute when Start Quiz button is pressed
 targetStartBtn.addEventListener("click", function() {
   // Start Timer
-  var countStart = 5;
+  var countStart = 75;
+  targetTime.textContent = countStart;
   setInterval(function() {
-    if (countStart === 0) {
+    if (countStart <= 0) {
+      targetTime.textContent = 0;
       return;
     }
     countStart--;
@@ -137,6 +139,10 @@ targetStartBtn.addEventListener("click", function() {
       if (selectedAnswer === countryArr[questionCounter].True) {
         console.log("Correct");
       } else {
+        countStart -= 15;
+        this.style.background = "#ff3333";
+        this.style.color = "#ffffff";
+
         console.log("Incorrect");
       }
     });

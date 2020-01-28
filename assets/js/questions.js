@@ -1,3 +1,4 @@
+// ***Question + Answer Generation***
 // Variables for targeting elements in HTML
 var targetHighscore = document.querySelector("#highscoreDiv");
 var targetTime = document.querySelector("#timeDiv");
@@ -5,6 +6,7 @@ var targetTitle = document.querySelector("#title");
 var targetIntro = document.querySelector("#intro");
 var targetStartBtn = document.querySelector("#startBtn");
 var targetContentParent = document.querySelector("#contentParent");
+var countStart = 150;
 var questionCounter = 0;
 
 // Variables for Question and Answers
@@ -91,11 +93,14 @@ countryArr = shuffle(countryArr);
 // Actions to execute when Start Quiz button is pressed
 targetStartBtn.addEventListener("click", function() {
   // (1) Start Timer
-  var countStart = 150;
   targetTime.textContent = countStart;
-  setInterval(function() {
+  var timer = setInterval(function() {
     if (countStart <= 0) {
+      clearInterval(timer);
+      countStart = 0;
       targetTime.textContent = 0;
+      removeContent();
+      createHighscoreDiv();
       return;
     }
     countStart--;
@@ -152,12 +157,9 @@ targetStartBtn.addEventListener("click", function() {
     for (j = 0; j < 4; j++) {
       targetAnswers[j].addEventListener("click", function() {
         var selectedAnswer = this.textContent;
-        // (i) If clicked answer is true, current question and answers will be removed, questionsCounter advances by one, and newQuestions() function is called
+        // (i) If clicked answer is true, current question and answers will be removed, questionsCounter advances by one, timer will stop, and newQuestions() function is called
         if (selectedAnswer === countryArr[questionCounter].True) {
-          document.querySelector("#question").remove();
-          for (k = 0; k < targetAnswers.length; k++) {
-            targetAnswers[k].remove();
-          }
+          removeContent();
           questionCounter++;
           newQuestion();
           console.log("Correct");
@@ -172,3 +174,17 @@ targetStartBtn.addEventListener("click", function() {
     }
   }
 });
+
+function removeContent() {
+  document.querySelector("#question").remove();
+  var targetAnswer = document.querySelectorAll(".answer");
+  for (a = 0; a < targetAnswer.length; a++) {
+    targetAnswer[a].remove();
+  }
+}
+
+function createHighscoreDiv() {
+  var highscoreTitle = document.createElement("h3");
+  highscoreTitle.textContent = "Highscores";
+  targetContentParent.appendChild(highscoreTitle);
+}

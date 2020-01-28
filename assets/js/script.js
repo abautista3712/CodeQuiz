@@ -92,59 +92,65 @@ targetStartBtn.addEventListener("click", function() {
   targetIntro.remove();
   targetStartBtn.remove();
 
-  //   New Question
-  var newQuestion = document.createElement("h2");
-  newQuestion.textContent =
-    "What is the capital of " + countryArr[questionCounter].Name + "?";
-  targetContentParent.appendChild(newQuestion);
+  nextQuestion();
 
-  //   New Answers Generation
-  var answerArr = [];
-  answerArr.push(countryArr[questionCounter].True);
-  for (i = 0; i < 3; i++) {
-    answerArr.push(countryArr[questionCounter].False[i]);
-  }
-
-  //   New Answer Shuffle via Fisher-Yates (Knuth) Shuffle
-  function shuffle(array) {
-    var currentIndex = array.length,
-      temporaryValue,
-      randomIndex;
-    while (0 !== currentIndex) {
-      randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex -= 1;
-      temporaryValue = array[currentIndex];
-      array[currentIndex] = array[randomIndex];
-      array[randomIndex] = temporaryValue;
+  function nextQuestion() {
+    //   New Question Function
+    var newQuestionDiv = document.createElement("h2");
+    newQuestionDiv.setAttribute("id", "question");
+    newQuestionDiv.textContent =
+      "What is the capital of " + countryArr[questionCounter].Name + "?";
+    targetContentParent.appendChild(newQuestionDiv);
+    //   New Answers Generation
+    var answerArr = [];
+    answerArr.push(countryArr[questionCounter].True);
+    for (i = 0; i < 3; i++) {
+      answerArr.push(countryArr[questionCounter].False[i]);
     }
-    return array;
-  }
-  answerArr = shuffle(answerArr);
-
-  //   Append array with shuffled answers to parent div
-  for (i = 0; i < 4; i++) {
-    var newAnswer = document.createElement("div");
-    newAnswer.textContent = answerArr[i];
-    newAnswer.style.padding = "1%";
-    newAnswer.style.border = "solid";
-    newAnswer.setAttribute("class", "answer");
-    targetContentParent.appendChild(newAnswer);
-  }
-
-  //   Add on click event to all answers
-  var targetAnswers = document.querySelectorAll(".answer");
-  for (j = 0; j < 4; j++) {
-    targetAnswers[j].addEventListener("click", function() {
-      var selectedAnswer = this.textContent;
-      if (selectedAnswer === countryArr[questionCounter].True) {
-        console.log("Correct");
-      } else {
-        countStart -= 15;
-        this.style.background = "#ff3333";
-        this.style.color = "#ffffff";
-
-        console.log("Incorrect");
+    //   New Answer Shuffle via Fisher-Yates (Knuth) Shuffle
+    function shuffle(array) {
+      var currentIndex = array.length,
+        temporaryValue,
+        randomIndex;
+      while (0 !== currentIndex) {
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+        temporaryValue = array[currentIndex];
+        array[currentIndex] = array[randomIndex];
+        array[randomIndex] = temporaryValue;
       }
-    });
+      return array;
+    }
+    answerArr = shuffle(answerArr);
+    //   Append array with shuffled answers to parent div
+    for (i = 0; i < 4; i++) {
+      var newAnswer = document.createElement("div");
+      newAnswer.textContent = answerArr[i];
+      newAnswer.style.padding = "1%";
+      newAnswer.style.border = "solid";
+      newAnswer.setAttribute("class", "answer");
+      targetContentParent.appendChild(newAnswer);
+    }
+    //   Add on-click event to all answers
+    var targetAnswers = document.querySelectorAll(".answer");
+    for (j = 0; j < 4; j++) {
+      targetAnswers[j].addEventListener("click", function() {
+        var selectedAnswer = this.textContent;
+        if (selectedAnswer === countryArr[questionCounter].True) {
+          document.querySelector("#question").remove();
+          for (k = 0; k < targetAnswers.length; k++) {
+            targetAnswers[k].remove();
+          }
+          questionCounter++;
+          nextQuestion();
+          console.log("Correct");
+        } else {
+          countStart -= 15;
+          this.style.background = "#ff3333";
+          this.style.color = "#ffffff";
+          console.log("Incorrect");
+        }
+      });
+    }
   }
 });

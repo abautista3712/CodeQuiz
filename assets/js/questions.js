@@ -6,7 +6,7 @@ var targetTitle = document.querySelector("#title");
 var targetIntro = document.querySelector("#intro");
 var targetStartBtn = document.querySelector("#startBtn");
 var targetContentParent = document.querySelector("#contentParent");
-var countStart = 0;
+var countStart = 150;
 var questionCounter = 0;
 
 // ---Variables for Question and Answers---
@@ -90,28 +90,39 @@ function shuffle(array) {
 }
 countryArr = shuffle(countryArr);
 
+function removeIntro() {
+  targetTitle.remove();
+  targetIntro.remove();
+  targetStartBtn.remove();
+}
+// Actions to execute when View Highscores button is pressed before Start Quiz
+targetHighscore.addEventListener("click", function() {
+  removeIntro();
+  createHighscoreContent();
+});
+
 // ---Actions to execute when Start Quiz button is pressed---
 targetStartBtn.addEventListener("click", function() {
   // (1) Start Timer
   targetTime.textContent = countStart;
   var timer = setInterval(function() {
-    if (questionCounter >= 9 || countStart <= 0) {
+    if (countStart <= 0) {
       countStart = 0;
       targetTime.textContent = 0;
       clearInterval(timer);
-      renderHSInput();
+      removeContent();
+      createHighscoreContent();
       return;
     }
     countStart--;
     targetTime.textContent = countStart;
   }, 1000);
-  // (2) View Highscore Button changes to Current Highscore
-  targetHighscore.textContent = "Highscore";
-  // (3) Remove Elements
-  targetTitle.remove();
-  targetIntro.remove();
-  targetStartBtn.remove();
+  // (2) Remove Elements & Start New Question
+  removeIntro();
   newQuestion();
+
+  // (3) View Highscores is removed when Start Quiz is pressed
+  targetHighscore.textContent = "";
 
   // (4) Function to create new question + shuffled answers
   function newQuestion() {
@@ -159,6 +170,8 @@ targetStartBtn.addEventListener("click", function() {
         // (i) If clicked answer is true, current question and answers will be removed, questionsCounter advances by one, timer will stop, and newQuestions() function is called
         if (selectedAnswer === countryArr[questionCounter].True) {
           if (questionCounter >= 9) {
+            clearInterval(timer);
+            renderHSInput();
             return;
           } else {
             questionCounter++;
@@ -323,6 +336,7 @@ function createHighscoreContent(x) {
   }
   var targetInitialsArr = JSON.parse(localStorage.getItem("inputInitials"));
   var targetScoreArr = JSON.parse(localStorage.getItem("inputScore"));
+
   document.querySelector("#row1col1").textContent = targetInitialsArr[0];
   document.querySelector("#row1col2").textContent = targetScoreArr[0];
   document.querySelector("#row2col1").textContent = targetInitialsArr[1];

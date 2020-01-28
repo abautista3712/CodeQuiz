@@ -178,7 +178,7 @@ targetStartBtn.addEventListener("click", function() {
   }
 });
 
-// ***Highscore Page Generation***
+// ***Highscore Input Generation***
 function removeContent() {
   document.querySelector("#question").remove();
   var targetAnswer = document.querySelectorAll(".answer");
@@ -190,10 +190,11 @@ function removeContent() {
 function createHighscoreContent() {
   var highscoreTitle = document.createElement("h3");
   highscoreTitle.setAttribute("class", "contentFlex");
-  highscoreTitle.textContent = "Highscores";
+  highscoreTitle.textContent = "Score: " + countStart;
   targetContentParent.appendChild(highscoreTitle);
 
   var highscoreInstructions = document.createElement("div");
+  highscoreInstructions.setAttribute("id", "instructions");
   highscoreInstructions.setAttribute("class", "contentFlex");
   highscoreInstructions.style.marginBottom = "1%";
   highscoreInstructions.textContent =
@@ -201,6 +202,7 @@ function createHighscoreContent() {
   targetContentParent.appendChild(highscoreInstructions);
 
   var highscoreContainer = document.createElement("div");
+  highscoreContainer.setAttribute("id", "parentContainer");
   highscoreContainer.setAttribute("class", "contentFlex");
   highscoreContainer.style.width = "100%";
   targetContentParent.appendChild(highscoreContainer);
@@ -223,12 +225,14 @@ function enterInput() {
   var targetInput = document.querySelector("#input");
   document.addEventListener("keypress", function(e) {
     if (e.key === "Enter") {
-      console.log(targetInput.value);
+      localStorage.setItem("userInitials", targetInput.value);
+      removeHSInput();
     }
   });
   var targetInputBtn = document.querySelector("#inputBtn");
   targetInputBtn.addEventListener("click", function() {
-    console.log(targetInput.value);
+    localStorage.setItem("userInitials", targetInput.value);
+    removeHSInput();
   });
 }
 
@@ -236,4 +240,11 @@ function renderHSInput() {
   removeContent();
   createHighscoreContent();
   enterInput();
+}
+
+// ***Highscore Page Generation***
+function removeHSInput() {
+  document.querySelector("h3").remove();
+  document.querySelector("#instructions").remove();
+  document.querySelector("#parentContainer").remove();
 }

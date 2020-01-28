@@ -98,6 +98,7 @@ function removeIntro() {
 // Actions to execute when View Highscores button is pressed before Start Quiz
 targetHighscore.addEventListener("click", function() {
   removeIntro();
+  targetHighscore.textContent = "";
   createHighscoreContent();
 });
 

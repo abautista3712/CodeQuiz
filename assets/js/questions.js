@@ -1,5 +1,5 @@
 // ***Question + Answer Generation***
-// Variables for targeting elements in HTML
+// ---Variables for targeting elements in HTML---
 var targetHighscore = document.querySelector("#highscoreDiv");
 var targetTime = document.querySelector("#timeDiv");
 var targetTitle = document.querySelector("#title");
@@ -9,7 +9,7 @@ var targetContentParent = document.querySelector("#contentParent");
 var countStart = 0;
 var questionCounter = 0;
 
-// Variables for Question and Answers
+// ---Variables for Question and Answers---
 var Australia = {
   Name: "Australia",
   True: "Canberra",
@@ -61,7 +61,7 @@ var Canada = {
   False: ["Georgetown", "Monrovia", "Port Moresby"]
 };
 
-// Array with all countries to order questions
+// ---Variable Array with all countries to order questions---
 var countryArr = [
   Australia,
   Cambodia,
@@ -90,7 +90,7 @@ function shuffle(array) {
 }
 countryArr = shuffle(countryArr);
 
-// Actions to execute when Start Quiz button is pressed
+// ---Actions to execute when Start Quiz button is pressed---
 targetStartBtn.addEventListener("click", function() {
   // (1) Start Timer
   targetTime.textContent = countStart;
@@ -179,6 +179,8 @@ targetStartBtn.addEventListener("click", function() {
 });
 
 // ***Highscore Input Generation***
+// ---Functions---
+// (1) Removes questions and answers
 function removeContent() {
   document.querySelector("#question").remove();
   var targetAnswer = document.querySelectorAll(".answer");
@@ -186,65 +188,128 @@ function removeContent() {
     targetAnswer[a].remove();
   }
 }
-
-function createHighscoreContent() {
-  var highscoreTitle = document.createElement("h3");
-  highscoreTitle.setAttribute("class", "contentFlex");
-  highscoreTitle.textContent = "Score: " + countStart;
-  targetContentParent.appendChild(highscoreTitle);
-
-  var highscoreInstructions = document.createElement("div");
-  highscoreInstructions.setAttribute("id", "instructions");
-  highscoreInstructions.setAttribute("class", "contentFlex");
-  highscoreInstructions.style.marginBottom = "1%";
-  highscoreInstructions.textContent =
+// (2) Creates highscore input page content
+function createHighscoreInput() {
+  // Title/Score
+  var scoreTitle = document.createElement("h3");
+  scoreTitle.setAttribute("class", "contentFlex");
+  scoreTitle.textContent = "Score: " + countStart;
+  targetContentParent.appendChild(scoreTitle);
+  // Instructions
+  var scoreInstructions = document.createElement("div");
+  scoreInstructions.setAttribute("id", "instructions");
+  scoreInstructions.setAttribute("class", "contentFlex");
+  scoreInstructions.style.marginBottom = "1%";
+  scoreInstructions.textContent =
     "You placed on the leaderboard! Input your initials:";
-  targetContentParent.appendChild(highscoreInstructions);
-
-  var highscoreContainer = document.createElement("div");
-  highscoreContainer.setAttribute("id", "parentContainer");
-  highscoreContainer.setAttribute("class", "contentFlex");
-  highscoreContainer.style.width = "100%";
-  targetContentParent.appendChild(highscoreContainer);
-
-  var highscoreInput = document.createElement("input");
-  highscoreInput.setAttribute("id", "input");
-  highscoreInput.setAttribute("maxlength", "3");
-  highscoreInput.style.textAlign = "center";
-  highscoreInput.style.margin = "1%";
-  highscoreContainer.appendChild(highscoreInput);
-
-  var highscoreBtn = document.createElement("button");
-  highscoreBtn.setAttribute("id", "inputBtn");
-  highscoreBtn.setAttribute("class", "btn btn-success");
-  highscoreBtn.textContent = "\u00bb";
-  highscoreContainer.appendChild(highscoreBtn);
+  targetContentParent.appendChild(scoreInstructions);
+  // Container that wraps around input and button
+  var scoreContainer = document.createElement("div");
+  scoreContainer.setAttribute("id", "inputParentContainer");
+  scoreContainer.setAttribute("class", "contentFlex");
+  scoreContainer.style.width = "100%";
+  targetContentParent.appendChild(scoreContainer);
+  // Input Field
+  var scoreInput = document.createElement("input");
+  scoreInput.setAttribute("id", "input");
+  scoreInput.setAttribute("maxlength", "3");
+  scoreInput.style.textAlign = "center";
+  scoreInput.style.margin = "1%";
+  scoreContainer.appendChild(scoreInput);
+  // Input Button
+  var scoreBtn = document.createElement("button");
+  scoreBtn.setAttribute("id", "inputBtn");
+  scoreBtn.setAttribute("class", "btn btn-success");
+  scoreBtn.textContent = "\u00bb";
+  scoreContainer.appendChild(scoreBtn);
 }
 
+// (3) Sets user input to localStorage
 function enterInput() {
+  // via 'enter' keypress
   var targetInput = document.querySelector("#input");
   document.addEventListener("keypress", function(e) {
     if (e.key === "Enter") {
       localStorage.setItem("userInitials", targetInput.value);
-      removeHSInput();
+      renderHS();
     }
   });
+  // via input button press
   var targetInputBtn = document.querySelector("#inputBtn");
   targetInputBtn.addEventListener("click", function() {
     localStorage.setItem("userInitials", targetInput.value);
-    removeHSInput();
+    renderHS();
   });
 }
 
+// ---Functions are called to render highscore input page---
 function renderHSInput() {
   removeContent();
-  createHighscoreContent();
+  createHighscoreInput();
   enterInput();
 }
 
 // ***Highscore Page Generation***
+var testArr = [1, "adb", 70];
+
 function removeHSInput() {
   document.querySelector("h3").remove();
   document.querySelector("#instructions").remove();
-  document.querySelector("#parentContainer").remove();
+  document.querySelector("#inputParentContainer").remove();
+}
+
+function highscoreTitle() {
+  var highscoreTitle = document.createElement("h3");
+  highscoreTitle.setAttribute("class", "contentFlex");
+  highscoreTitle.textContent = "Highscores";
+  targetContentParent.appendChild(highscoreTitle);
+}
+
+function highscoreContainer() {
+  var highscoreContainer = document.createElement("div");
+  highscoreContainer.setAttribute("id", "parentContainer");
+  highscoreContainer.setAttribute("class", "container");
+  targetContentParent.appendChild(highscoreContainer);
+}
+
+function highscoreRow() {
+  var highscoreRow = document.createElement("div");
+  highscoreRow.setAttribute("id", "parentRow");
+  highscoreRow.setAttribute("class", "row");
+  document.querySelector("#parentContainer").appendChild(highscoreRow);
+}
+
+function addRow() {}
+
+function createHighscoreContent(x) {
+  highscoreTitle();
+  highscoreContainer();
+  highscoreRow();
+  for (l = 0; l < 3; l++) {
+    var x = ["Place", "Initials", "Score"];
+    var highscoreCol = document.createElement("div");
+    highscoreCol.setAttribute("id", x[l]);
+    highscoreCol.setAttribute("class", "col-md-4");
+    highscoreCol.style.textAlign = "center";
+    highscoreCol.style.fontWeight = "bold";
+    highscoreCol.textContent = x[l];
+    document.querySelector("#parentRow").appendChild(highscoreCol);
+  }
+  for (m = 0; m < 5; m++) {
+    highscoreRow();
+    for (n = 0; n < 3; n++) {
+      var dataArr = [n];
+      var highscoreCol = document.createElement("div");
+      highscoreCol.setAttribute("id", dataArr[n]);
+      highscoreCol.setAttribute("class", "col-md-4");
+      highscoreCol.style.textAlign = "center";
+      highscoreCol.textContent = n;
+      document.querySelector("#parentRow").appendChild(highscoreCol);
+    }
+  }
+}
+
+function renderHS() {
+  removeHSInput();
+  createHighscoreContent();
 }

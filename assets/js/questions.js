@@ -230,14 +230,26 @@ function enterInput() {
   var targetInput = document.querySelector("#input");
   document.addEventListener("keypress", function(e) {
     if (e.key === "Enter") {
-      localStorage.setItem("userInitials", targetInput.value);
+      var initialsArr = JSON.parse(localStorage.getItem("inputInitials")) || [];
+      initialsArr.push(targetInput.value);
+      localStorage.setItem("inputInitials", JSON.stringify(initialsArr));
+
+      var scoreArr = JSON.parse(localStorage.getItem("inputScore")) || [];
+      scoreArr.push(countStart);
+      localStorage.setItem("inputScore", JSON.stringify(scoreArr));
       renderHS();
     }
   });
   // via input button press
   var targetInputBtn = document.querySelector("#inputBtn");
   targetInputBtn.addEventListener("click", function() {
-    localStorage.setItem("userInitials", targetInput.value);
+    var initialsArr = JSON.parse(localStorage.getItem("inputInitials")) || [];
+    initialsArr.push(targetInput.value);
+    localStorage.setItem("inputInitials", JSON.stringify(initialsArr));
+
+    var scoreArr = JSON.parse(localStorage.getItem("inputScore")) || [];
+    scoreArr.push(countStart);
+    localStorage.setItem("inputScore", JSON.stringify(scoreArr));
     renderHS();
   });
 }
@@ -250,8 +262,6 @@ function renderHSInput() {
 }
 
 // ***Highscore Page Generation***
-var testArr = [1, "adb", 70];
-
 function removeHSInput() {
   document.querySelector("h3").remove();
   document.querySelector("#instructions").remove();
@@ -282,8 +292,11 @@ function highscoreRow() {
 function addRow() {}
 
 function createHighscoreContent(x) {
+  // Calls function to create h3 element
   highscoreTitle();
+  // Calls function to create container
   highscoreContainer();
+  // Creates row with header
   highscoreRow();
   for (l = 0; l < 3; l++) {
     var x = ["Place", "Initials", "Score"];
@@ -295,18 +308,31 @@ function createHighscoreContent(x) {
     highscoreCol.textContent = x[l];
     document.querySelector("#parentRow").appendChild(highscoreCol);
   }
-  for (m = 0; m < 5; m++) {
-    highscoreRow();
+  // Creates 5 blank rows with places 1st through 5th in decending order
+  for (m = 1; m < 6; m++) {
     for (n = 0; n < 3; n++) {
-      var dataArr = [n];
+      var testArr = [m, ,];
+      // var targetLocalStorage = JSON.parse(local.Storage.getItem()
       var highscoreCol = document.createElement("div");
-      highscoreCol.setAttribute("id", dataArr[n]);
+      highscoreCol.setAttribute("id", "row" + m + "col" + n);
       highscoreCol.setAttribute("class", "col-md-4");
       highscoreCol.style.textAlign = "center";
-      highscoreCol.textContent = n;
+      highscoreCol.textContent = testArr[n];
       document.querySelector("#parentRow").appendChild(highscoreCol);
     }
   }
+  var targetInitialsArr = JSON.parse(localStorage.getItem("inputInitials"));
+  var targetScoreArr = JSON.parse(localStorage.getItem("inputScore"));
+  document.querySelector("#row1col1").textContent = targetInitialsArr[0];
+  document.querySelector("#row1col2").textContent = targetScoreArr[0];
+  document.querySelector("#row2col1").textContent = targetInitialsArr[1];
+  document.querySelector("#row2col2").textContent = targetScoreArr[1];
+  document.querySelector("#row3col1").textContent = targetInitialsArr[2];
+  document.querySelector("#row3col2").textContent = targetScoreArr[2];
+  document.querySelector("#row4col1").textContent = targetInitialsArr[3];
+  document.querySelector("#row4col2").textContent = targetScoreArr[3];
+  document.querySelector("#row5col1").textContent = targetInitialsArr[4];
+  document.querySelector("#row5col2").textContent = targetScoreArr[4];
 }
 
 function renderHS() {

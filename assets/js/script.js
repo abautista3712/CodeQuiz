@@ -90,7 +90,7 @@ countryArr = shuffle(countryArr);
 
 // Actions to execute when Start Quiz button is pressed
 targetStartBtn.addEventListener("click", function() {
-  // Start Timer
+  // (1) Start Timer
   var countStart = 75;
   targetTime.textContent = countStart;
   setInterval(function() {
@@ -101,29 +101,29 @@ targetStartBtn.addEventListener("click", function() {
     countStart--;
     targetTime.textContent = countStart;
   }, 1000);
-  //   View Highscore Button changes to Current Highscore
+  // (2) View Highscore Button changes to Current Highscore
   targetHighscore.textContent = "Highscore";
-  //   Remove Elements
+  // (3) Remove Elements
   targetTitle.remove();
   targetIntro.remove();
   targetStartBtn.remove();
   newQuestion();
 
-  //   Function to create new question + shuffled answers
+  // (4) Function to create new question + shuffled answers
   function newQuestion() {
-    //   New Question Generation
+    // [a] New Question Generation
     var newQuestionDiv = document.createElement("h2");
     newQuestionDiv.setAttribute("id", "question");
     newQuestionDiv.textContent =
       "What is the capital of " + countryArr[questionCounter].Name + "?";
     targetContentParent.appendChild(newQuestionDiv);
-    //   New Answers Generation
+    // [b] New Answers Generation
     var answerArr = [];
     answerArr.push(countryArr[questionCounter].True);
     for (i = 0; i < 3; i++) {
       answerArr.push(countryArr[questionCounter].False[i]);
     }
-    //   New Answer Shuffle via Fisher-Yates (Knuth) Shuffle
+    // [c] New Answer Shuffle via Fisher-Yates (Knuth) Shuffle
     function shuffle(array) {
       var currentIndex = array.length,
         temporaryValue,
@@ -138,7 +138,7 @@ targetStartBtn.addEventListener("click", function() {
       return array;
     }
     answerArr = shuffle(answerArr);
-    //   Append array with shuffled answers to parent div
+    // [d] Append array with shuffled answers to parent div
     for (i = 0; i < 4; i++) {
       var newAnswer = document.createElement("div");
       newAnswer.textContent = answerArr[i];
@@ -147,11 +147,12 @@ targetStartBtn.addEventListener("click", function() {
       newAnswer.setAttribute("class", "answer");
       targetContentParent.appendChild(newAnswer);
     }
-    //   Add on-click event to all answers
+    // [e] Add on-click event to all answers
     var targetAnswers = document.querySelectorAll(".answer");
     for (j = 0; j < 4; j++) {
       targetAnswers[j].addEventListener("click", function() {
         var selectedAnswer = this.textContent;
+        // (i) If clicked answer is true, current question and answers will be removed, questionsCounter advances by one, and newQuestions() function is called
         if (selectedAnswer === countryArr[questionCounter].True) {
           document.querySelector("#question").remove();
           for (k = 0; k < targetAnswers.length; k++) {
@@ -161,6 +162,7 @@ targetStartBtn.addEventListener("click", function() {
           newQuestion();
           console.log("Correct");
         } else {
+          // (ii) If clicked answer is not true, countStart is subtracted by 15 and styling is added to infer a wrong answer is selected
           countStart -= 15;
           this.style.background = "#ff3333";
           this.style.color = "#ffffff";

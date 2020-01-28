@@ -6,7 +6,7 @@ var targetTitle = document.querySelector("#title");
 var targetIntro = document.querySelector("#intro");
 var targetStartBtn = document.querySelector("#startBtn");
 var targetContentParent = document.querySelector("#contentParent");
-var countStart = 150;
+var countStart = 0;
 var questionCounter = 0;
 
 // Variables for Question and Answers
@@ -99,8 +99,7 @@ targetStartBtn.addEventListener("click", function() {
       countStart = 0;
       targetTime.textContent = 0;
       clearInterval(timer);
-      removeContent();
-      createHighscoreDiv();
+      renderHSInput();
       return;
     }
     countStart--;
@@ -165,18 +164,21 @@ targetStartBtn.addEventListener("click", function() {
             questionCounter++;
             removeContent();
             newQuestion();
+            console.log("Correct");
           }
         } else {
           // (ii) If clicked answer is not true, countStart is subtracted by 15 and styling is added to infer wrong answer is selected
           countStart -= 15;
           this.style.background = "#ff3333";
           this.style.color = "#ffffff";
+          console.log("Incorrect");
         }
       });
     }
   }
 });
 
+// ***Highscore Page Generation***
 function removeContent() {
   document.querySelector("#question").remove();
   var targetAnswer = document.querySelectorAll(".answer");
@@ -185,8 +187,38 @@ function removeContent() {
   }
 }
 
-function createHighscoreDiv() {
+function createHighscoreContent() {
   var highscoreTitle = document.createElement("h3");
+  highscoreTitle.setAttribute("class", "contentFlex");
   highscoreTitle.textContent = "Highscores";
   targetContentParent.appendChild(highscoreTitle);
+
+  var highscoreInstructions = document.createElement("div");
+  highscoreInstructions.setAttribute("class", "contentFlex");
+  highscoreInstructions.style.marginBottom = "1%";
+  highscoreInstructions.textContent =
+    "You placed on the leaderboard! Input your initials:";
+  targetContentParent.appendChild(highscoreInstructions);
+
+  var highscoreContainer = document.createElement("div");
+  highscoreContainer.setAttribute("class", "contentFlex");
+  highscoreContainer.style.width = "100%";
+  targetContentParent.appendChild(highscoreContainer);
+
+  var highscoreInput = document.createElement("input");
+  highscoreInput.setAttribute("id", "input");
+  highscoreInput.setAttribute("maxlength", "3");
+  highscoreInput.style.textAlign = "center";
+  highscoreInput.style.margin = "1%";
+  highscoreContainer.appendChild(highscoreInput);
+
+  var highscoreBtn = document.createElement("button");
+  highscoreBtn.setAttribute("class", "btn btn-success");
+  highscoreBtn.textContent = "\u00bb";
+  highscoreContainer.appendChild(highscoreBtn);
+}
+
+function renderHSInput() {
+  removeContent();
+  createHighscoreContent();
 }

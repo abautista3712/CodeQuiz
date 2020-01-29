@@ -14,49 +14,6 @@
     <title>CodeQuiz</title>
   </head>
   <body>
-    <!-- Projected Approach
-[A] Pre-work Setup
-[B] Divided into 4 Page types
-X. Instruction page
-    X. HTML
-        a. View Highscores (Top Left)
-        b. Static Time (Top Right)
-        X. In div: H1 Title, Instructions, "Start Quiz" button
-    ii. JS
-        a. Behind: Sets questions/answers in JS to localStorage
-        X. "Start Quiz" Button 
-            X addEventListener: On click
-                -Transition to second Page
-                -Gets question/answers from localStorage
-                X Starts timer
-2. Quiz pages
-    i. HTML
-        a. H2 element question
-        b. 4 buttons with answers inside
-    ii. JS
-        a. Timer
-            -Counts down from 75s
-            -If at 0 automatically goes to highscore page
-        a. If wrong: border below appears. Feedback: "wrong" appears.
-        b. If right: append H2 element and 4 buttons using getItem from local localStorage
-3. Congrats! (if counter = 0 or if questions > 10)
-    i. HTML
-        a. Use HTML from part 2
-    ii. JS
-        a. Append
-            -"Finished"
-            -"Final Score"
-            -Form for initials input
-            -Submit button
-        b. addEventListener
-            -Submit button will:
-                -Set information into localStorage
-                -Display local storage
-4. Highscore
-    i. Get information from localStorage
-    ii. Display local storage
-    iii. Append "Go back" button      -->
-
     <!-- Header: Score + Timer -->
     <div class="container">
       <div class="row marginSpacing">
@@ -76,7 +33,7 @@ X. Instruction page
             This is a quiz about the world's capital cities. There are 10 total
             questions. For each question, there will be four possible answers to
             choose from, one of which is correct. Only a correct answer will
-            advance you to the next question. You will have 75 seconds to
+            advance you to the next question. You will have 150 seconds to
             complete the quiz. Good luck!
           </p>
           <button id="startBtn" type="button" class="btn btn-primary">
